@@ -48,6 +48,17 @@ class SlicesDataset(Dataset):
         # Hint2: You can use None notation like so: arr[None, :] to add size-1 
         # dimension to a Numpy array
         # <YOUR CODE GOES HERE>
+        
+#         print(slc)
+#         print("image", self.data[slc[0]]["image"].shape)
+#         print("seg", self.data[slc[0]]["seg"].shape)
+        
+        img = self.data[slc[0]]["image"][slc[1]]
+        seg = self.data[slc[0]]["seg"][slc[1]][None,:]
+        
+        sample['image'] = torch.from_numpy(img).unsqueeze(0).float().to("cuda")
+        sample['seg'] = torch.from_numpy(seg).long().to("cuda")
+        
 
         return sample
 

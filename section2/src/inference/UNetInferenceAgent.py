@@ -38,8 +38,9 @@ class UNetInferenceAgent:
             3D NumPy array with prediction mask
         """
         
-        raise NotImplementedError
-
+        new_shape = (volume.shape[0], self.patch_size, self.patch_size)
+        return self.single_volume_inference(med_reshape(volume, new_shape))
+        
     def single_volume_inference(self, volume):
         """
         Runs inference on a single volume of conformant patch size
@@ -53,7 +54,7 @@ class UNetInferenceAgent:
         self.model.eval()
 
         # Assuming volume is a numpy array of shape [X,Y,Z] and we need to slice X axis
-        slices = []
+        mask = np.zeros(volume.shape)
 
         # TASK: Write code that will create mask for each slice across the X (0th) dimension. After 
         # that, put all slices into a 3D Numpy array. You can verify if your method is 
@@ -61,4 +62,10 @@ class UNetInferenceAgent:
         # with the label in 3D Slicer.
         # <YOUR CODE HERE>
 
-        return # 
+        for i, v in enumerate(volume):
+            v = torch.from_numpy(v.astype(np.single)/255.0).unsqueeze(0).unsqueeze(0)
+            pred = self.model(v.to(self.device))
+            # pred_class = torch.argmax(pred, dim=1).cpu().detach().squeeze()
+            mask[i] = torch.argmax(pred, dim=1).cpu().detach().squeeze()
+
+        return mask # 

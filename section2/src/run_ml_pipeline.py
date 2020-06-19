@@ -13,12 +13,12 @@ class Config:
     """
     def __init__(self):
         self.name = "Basic_unet"
-        self.root_dir = r"YOUR DIRECTORY HERE"
-        self.n_epochs = 10
+        self.root_dir = r"../../data/TrainingSet/"
+        self.n_epochs = 50
         self.learning_rate = 0.0002
         self.batch_size = 8
         self.patch_size = 64
-        self.test_results_dir = "RESULTS GO HERE"
+        self.test_results_dir = "out"
 
 if __name__ == "__main__":
     # Get configuration
@@ -49,6 +49,13 @@ if __name__ == "__main__":
     # the array with indices of training volumes to be used for training, validation 
     # and testing respectively.
     # <YOUR CODE GOES HERE>
+    
+    val_split = int(0.7*len(data))
+    test_split = int(0.85*len(data))
+    
+    split["train"] = keys[:val_split]
+    split["val"] = keys[val_split:test_split]
+    split["test"] = keys[test_split:]
 
     # Set up and run experiment
     

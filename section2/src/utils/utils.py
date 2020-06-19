@@ -92,8 +92,10 @@ def med_reshape(image, new_shape):
     Returns:
         3D array of desired shape, padded with zeroes
     """
-
+        
     reshaped_image = np.zeros(new_shape)
+    s1, s2, s3 = np.minimum(image.shape, new_shape)
+    reshaped_image[:s1, :s2, :s3] = image[:s1, :s2, :s3]
 
     # TASK: write your original image into the reshaped image
     # <CODE GOES HERE>

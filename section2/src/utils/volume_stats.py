@@ -25,7 +25,7 @@ def Dice3d(a, b):
     # TASK: Write implementation of Dice3D. If you completed exercises in the lessons
     # you should already have it.
     # <YOUR CODE HERE>
-    pass
+    return 2*np.sum((a>0) & (b>0))/(np.sum(a>0) + np.sum(b>0))
 
 def Jaccard3d(a, b):
     """
@@ -50,4 +50,4 @@ def Jaccard3d(a, b):
     # the Dice3D function from above to do the computation ;)
     # <YOUR CODE GOES HERE>
 
-    return #
+    return 2*np.sum((a>0) & (b>0))/np.sum((a>0) | (b>0)) #
