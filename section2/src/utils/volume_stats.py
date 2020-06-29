@@ -50,4 +50,4 @@ def Jaccard3d(a, b):
     # the Dice3D function from above to do the computation ;)
     # <YOUR CODE GOES HERE>
 
-    return 2*np.sum((a>0) & (b>0))/np.sum((a>0) | (b>0)) #
+    return np.sum((a>0) & (b>0))/np.sum((a>0) | (b>0)) #
