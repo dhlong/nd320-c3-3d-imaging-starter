@@ -113,7 +113,7 @@ class UNetExperiment:
             loss = self.loss_function(prediction, target[:, 0, :, :])
 
             # TASK: What does each dimension of variable prediction represent?
-            # ANSWER: probability of belonging to each of the class (1, 2 or None)
+            # ANSWER: batch size, classes, coronal, axial
 
             loss.backward()
             self.optimizer.step()
@@ -159,7 +159,7 @@ class UNetExperiment:
                 # TASK: Write validation code that will compute loss on a validation sample
                 # <YOUR CODE HERE>
                 
-                data = batch["image"]
+                data = batch["image"].float()
                 target = batch["seg"]
                 prediction = self.model(data)
                 prediction_softmax = F.softmax(prediction, dim=1)
